@@ -1,8 +1,7 @@
 class Bike	
 	
 	def initialize 
-		self.fix!
-		size!
+		fix!
 	end
 	
 	def broken?
@@ -16,13 +15,4 @@ class Bike
 	def fix!
 		@broken = false
 	end
-	def size! 
-		@biggness = 10
-	end
-	def show_biggness
-		@bigness
-	end
-
-
-
 end
