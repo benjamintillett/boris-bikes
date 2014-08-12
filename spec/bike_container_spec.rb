@@ -4,34 +4,35 @@ class ContainerHolder; include BikeContainer; end
 
 describe BikeContainer do 
 	let(:bike) { Bike.new }
-	let(:holder) { ContainerHolder.new }
+	let(:empty_holder) { ContainerHolder.new }
+	let(:holder_with_bike) { ContainerHolder.new }
+	before { holder_with_bike.dock(bike)}
 
-	it "should accept a bike" do 
-		expect(holder.bike_count).to eq(0)
-		holder.dock(bike)
-		expect(holder.bike_count).to eq(1)
+	context "An empty BikeContainer" do 
+		it "should accept a bike" do 
+			expect(empty_holder.bike_count).to eq(0)
+			empty_holder.dock(bike)
+			expect(empty_holder.bike_count).to eq(1)
+		end
+		it "should not release a bike" do
+			expect(empty_holder.release(bike)).to be nil 
+		end
 	end
 
-	it "should release a bike" do
-		holder.dock(bike)
-		expect(holder.bike_count).to eq(1)
-		holder.release(bike)
-		expect(holder.bike_count).to eq(0)
-	end
+	context "A Bikecontainer with one bike" do 
+		it "should release a bike" do
+			holder_with_bike.release(bike)
+			expect(holder_with_bike.bike_count).to eq(0)
+		end
 
-	it "should raise an argument error when release called with no argument" do 
-		holder.dock(bike)
-		expect(holder.bike_count).to eq(1)
-		expect { holder.release }.to raise_error ArgumentError
-	end
+		it "should raise an argument error when release called with no argument" do 
+			expect { holder_with_bike.release }.to raise_error ArgumentError
+		end
 
-	it "should not release a bike if no bikes are docked" do
-		expect(holder.release(bike)).to be nil 
-	end
 
-	it "should not release a bike if the argument is not a bike" do
-		holder.dock(bike)
-		expect(holder.release("string")).to be nil
-	end
 
+		it "should not release a bike if the argument is not a bike" do
+			expect(holder_with_bike.release("string")).to be nil
+		end
+	end
 end
