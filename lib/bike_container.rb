@@ -2,6 +2,10 @@ module BikeContainer
 
 	DEFAULT_CAPACITY = 10 
 
+	def empty?
+		bike_count == 0 
+	end
+
 	def bikes
 		@bikes ||= []
 	end
