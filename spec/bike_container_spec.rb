@@ -17,6 +17,9 @@ describe BikeContainer do
 		it "should not release a bike" do
 			expect(empty_holder.release(bike)).to be nil 
 		end
+		it "should not accept a non bike" do 
+			expect { empty_holder.dock(1) }.to raise_error(RuntimeError, "I only accept bikes!")
+		end
 	end
 
 	context "A Bikecontainer with one bike" do 
@@ -29,10 +32,22 @@ describe BikeContainer do
 			expect { holder_with_bike.release }.to raise_error ArgumentError
 		end
 
-
-
 		it "should not release a bike if the argument is not a bike" do
 			expect(holder_with_bike.release("string")).to be nil
+		end
+		
+		it "should not release a broken bike" do 
+			holder_with_bike.bikes.first.break!
+			expect(holder_with_bike.release(bike)).to eq nil
+		end
+	end
+
+	context "A BikeContainer that is full" do
+
+		it "should not accept a bike" do
+			holder_with_10_bikes = ContainerHolder.new
+			10.times { holder_with_10_bikes.dock(bike) }
+			expect { holder_with_10_bikes.dock(bike) }.to raise_error(RuntimeError, "Station is full")
 		end
 	end
 end
