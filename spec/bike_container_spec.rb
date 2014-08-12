@@ -62,10 +62,6 @@ describe BikeContainer do
 			expect(holder_with_bike.release("string")).to be nil
 		end
 		
-		it "should not release a broken bike" do 
-			holder_with_bike.bikes.first.break!
-			expect(holder_with_bike.release(bike)).to eq nil
-		end
 	end
 
 	context "A BikeContainer that is full" do
@@ -74,15 +70,15 @@ describe BikeContainer do
 			expect { full_holder.dock(bike) }.to raise_error(RuntimeError, "Station is full")
 		end
 	end
-	context "A full container with 5 broken and 5 fixed bikes" do
-		it "should return an array when broken is called" do 
+	context "A full container with 5 bikes and 5 broken bikes,  when the method broken? is called, returns: " do
+		it "an array" do 
 			expect(mixed_full_holder.broken_bikes).to be_instance_of(Array)  
 		end
 
-		it "should return an array of 5 bikes" do
+		it "an array of length 5" do
 			expect(mixed_full_holder.broken_bikes.count).to eq 5
 		end
-		it "should return 5 broken bikes" do 
+		it "an array of broken bikes" do 
 			mixed_full_holder.broken_bikes.each do |bike|
 				expect(bike).to be_broken
 			end

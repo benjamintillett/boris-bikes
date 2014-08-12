@@ -44,4 +44,14 @@ module BikeContainer
 		bikes.select { |bike| bike.broken? }
 	end
 
+	# def collect_bikes(options = {})
+	# 	station = options[:bike_container]
+	# 	if options[bike_type] == "broken bikes"
+	# 		station.broken_bikes.each do |broken_bike| 
+	# 			station.release(broken_bike)
+	# 			dock(broken_bike)
+	# 		end
+	# 	end
+	# end
+
 end
