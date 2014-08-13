@@ -1,3 +1,4 @@
+
 module BikeContainer 
 
 	DEFAULT_CAPACITY = 10 
@@ -29,14 +30,14 @@ module BikeContainer
 	end
 
 	def release(bike)
-		bikes.delete(bike) if available_bikes.count >= 1
+		bikes.delete(bike) if working_bikes.count >= 1
 	end
 
 	def full?
 		bike_count == capacity
 	end
 
-	def available_bikes
+	def working_bikes
 		bikes.reject { |bike| bike.broken? }
 	end
 
@@ -44,14 +45,11 @@ module BikeContainer
 		bikes.select { |bike| bike.broken? }
 	end
 
-	# def collect_bikes(options = {})
-	# 	station = options[:bike_container]
-	# 	if options[bike_type] == "broken bikes"
-	# 		station.broken_bikes.each do |broken_bike| 
-	# 			station.release(broken_bike)
-	# 			dock(broken_bike)
-	# 		end
-	# 	end
-	# end
+	def collect_bikes(options = {})
+		options[:bike_container].send(options[:bike_selection_method]).each do |bike| 
+		 	options[:bike_container].release(bike)
+		 	dock(bike)
+	 	end
+	end
 
 end
