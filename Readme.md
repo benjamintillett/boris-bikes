@@ -7,7 +7,7 @@ Week two project at the makers academy introduced us to OOP and testing with rsp
 The task was to model the "Boris Bikes" bike hire system. After a day of building a domian model. 
 I formed a pair and Implemented out domain model. 
 
-Skill learnt/used
+Skills learnt/used
 -----------------
 Rspec
 OOP
